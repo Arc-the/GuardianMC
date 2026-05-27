@@ -47,7 +47,7 @@ export const api = {
 
     const payload = (await response.json()) as { ok: boolean; transcript?: string; reason?: string };
     if (!response.ok || !payload.ok || !payload.transcript) {
-      throw new Error(payload.reason || `Wispr Flow request failed: ${response.status}`);
+      throw new Error(payload.reason || `ElevenLabs speech-to-text request failed: ${response.status}`);
     }
 
     return payload.transcript;

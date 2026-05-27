@@ -7,8 +7,7 @@ import { reportsRouter } from "./routes/reports.js";
 import { sessionRouter } from "./routes/session.js";
 import { sttRouter } from "./routes/stt.js";
 import { ttsRouter } from "./routes/tts.js";
-import { isElevenLabsConfigured } from "./services/elevenLabs.js";
-import { isWisprFlowConfigured } from "./services/wisprFlow.js";
+import { isElevenLabsConfigured, isElevenLabsSpeechToTextConfigured } from "./services/elevenLabs.js";
 import type { SessionContext } from "./types.js";
 
 dotenv.config();
@@ -25,7 +24,7 @@ app.get("/api/health", (_req, res) => {
   res.json({
     ok: true,
     providers: {
-      wisprFlowConfigured: isWisprFlowConfigured(),
+      wisprFlowConfigured: isElevenLabsSpeechToTextConfigured(),
       elevenLabsConfigured: isElevenLabsConfigured(),
       modelConfigured: Boolean(process.env.MODEL_API_KEY && process.env.MODEL_NAME)
     }

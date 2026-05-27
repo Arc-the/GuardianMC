@@ -9,9 +9,9 @@ export function TopBar({ providers }: TopBarProps) {
   const voiceReady = providers.wisprFlowConfigured && providers.elevenLabsConfigured;
   const partialReady = providers.wisprFlowConfigured || providers.elevenLabsConfigured;
   const providerLabel = voiceReady
-    ? "Wispr + ElevenLabs ready"
+    ? "ElevenLabs STT + TTS ready"
     : partialReady
-      ? `${providers.wisprFlowConfigured ? "Wispr" : "ElevenLabs"} ready`
+      ? `${providers.wisprFlowConfigured ? "ElevenLabs STT" : "ElevenLabs TTS"} ready`
       : "Fallback voice mode";
 
   return (

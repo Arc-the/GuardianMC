@@ -16,7 +16,7 @@ Track rule: **No typing allowed during build or demo.**
 
 Build and demo the product as a voice-first system:
 
-- Use Wispr Flow for voice-to-text.
+- Use ElevenLabs for both speech-to-text and text-to-speech.
 - Use a mission-control agent/model for reasoning and decision-making.
 - Use ElevenLabs for voice replies.
 - Keep text input only as a hidden/debug fallback for local troubleshooting. Do not use it in the submitted demo video.
@@ -28,7 +28,7 @@ Keep the architecture simple:
 
 ```txt
 User speaks
--> Wispr Flow turns voice into text
+-> ElevenLabs speech-to-text turns voice into text
 -> Agent/model acts as mission control
    -> loads venue context from a folder at session start
    -> reasons over assets, playbooks, incidents, and safety rules
@@ -42,7 +42,7 @@ Backend shape:
 ```txt
 Frontend microphone capture
 -> backend /api/stt
--> Wispr Flow
+-> ElevenLabs speech-to-text
 -> backend /api/agent/ask
 -> model + loaded context folder
 -> backend /api/tts
@@ -52,7 +52,7 @@ Frontend microphone capture
 
 Important:
 
-- Do not put Wispr Flow, ElevenLabs, or model API keys in frontend code.
+- Do not put ElevenLabs or model API keys in frontend code.
 - The backend owns all secrets.
 - The judged demo must work without typing.
 - The frontend may include text fallback for development, but it must not be the primary user flow.
@@ -176,8 +176,8 @@ Required controls:
 Voice input behavior:
 
 - Preferred path: record microphone audio and send it to backend `/api/stt`.
-- If Wispr Flow API access is available, backend uses Wispr Flow for transcription.
-- If Wispr Flow API access is unavailable, use Wispr Flow desktop dictation or browser `SpeechRecognition`.
+- If ElevenLabs speech-to-text access is available, backend uses ElevenLabs for transcription.
+- If ElevenLabs is unavailable, use browser `SpeechRecognition`.
 - The submitted demo should not rely on typed input.
 
 Voice output behavior:
@@ -224,7 +224,7 @@ The backend is mission control. It owns:
 - API secrets
 - Context loading
 - Agent/model calls
-- Wispr Flow STT integration
+- ElevenLabs speech-to-text integration
 - ElevenLabs TTS integration
 - Mock incident state
 - Report generation
@@ -290,13 +290,13 @@ Transcribes microphone audio.
 Preferred behavior:
 
 - Accept browser-recorded audio.
-- Convert to the format required by Wispr Flow if needed.
-- Send to Wispr Flow.
+- Convert to the format required by ElevenLabs speech-to-text if needed.
+- Send to ElevenLabs.
 - Return cleaned transcript text.
 
 Fallback behavior:
 
-- If Wispr Flow API access is not configured, return a provider-unavailable response so the frontend can use browser speech recognition or Wispr Flow desktop dictation.
+- If ElevenLabs speech-to-text is not configured, return a provider-unavailable response so the frontend can use browser speech recognition.
 - The judged demo should still avoid manual typing.
 
 ### `POST /api/agent/ask`
@@ -536,12 +536,10 @@ PORT=8787
 MODEL_API_KEY=
 MODEL_NAME=
 
-WISPRFLOW_API_KEY=
-WISPRFLOW_BASE_URL=
-
 ELEVENLABS_API_KEY=
 ELEVENLABS_VOICE_ID=
 ELEVENLABS_MODEL_ID=eleven_multilingual_v2
+ELEVENLABS_STT_MODEL_ID=scribe_v2
 ```
 
 Frontend `.env`:
@@ -589,7 +587,6 @@ server/
       incidents.ts
       reports.ts
     services/
-      wisprFlow.ts
       missionAgent.ts
       elevenLabs.ts
       incidentSimulator.ts
@@ -621,7 +618,7 @@ README.md
 
 - Frontend and backend run locally.
 - Session start loads files from `server/context/`.
-- User can ask via voice when Wispr Flow API access is configured.
+- User can ask via voice when ElevenLabs speech-to-text access is configured.
 - Demo flow works without typing.
 - Hidden/debug text fallback exists only for development recovery.
 - Agent/model returns structured mission-control responses.

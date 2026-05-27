@@ -1,5 +1,5 @@
 import express, { Router } from "express";
-import { transcribeWithWisprFlow } from "../services/wisprFlow.js";
+import { transcribeWithElevenLabs } from "../services/elevenLabs.js";
 
 export const sttRouter = Router();
 
@@ -11,7 +11,7 @@ sttRouter.post("/", express.raw({ type: "*/*", limit: "20mb" }), async (req, res
       return;
     }
 
-    const result = await transcribeWithWisprFlow(audio);
+    const result = await transcribeWithElevenLabs(audio);
     res.status(result.ok ? 200 : 503).json(result);
   } catch (error) {
     next(error);

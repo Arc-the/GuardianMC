@@ -77,7 +77,7 @@ export function useVoiceInput(onTranscript: (value: string) => void) {
     recognition.onerror = () => {
       setIsListening(false);
       setError("Browser speech recognition could not capture audio.");
-      setStatus("Focus the transcript field and use Wispr Flow desktop dictation.");
+      setStatus("Focus the transcript field and use manual dictation.");
     };
     recognitionRef.current = recognition;
     setIsListening(true);
@@ -116,7 +116,7 @@ export function useVoiceInput(onTranscript: (value: string) => void) {
       processorRef.current = processor;
       streamRef.current = stream;
       setIsListening(true);
-      setStatus("Recording operator audio for Wispr Flow.");
+      setStatus("Recording operator audio for ElevenLabs speech-to-text.");
       return true;
     } catch {
       cleanupAudio();
@@ -131,17 +131,17 @@ export function useVoiceInput(onTranscript: (value: string) => void) {
       const sampleRate = inputSampleRateRef.current;
       cleanupAudio();
       setIsListening(false);
-      setStatus("Transcribing with Wispr Flow.");
+      setStatus("Transcribing with ElevenLabs.");
 
       try {
         const wav = encodeWav(chunks, sampleRate, 16000);
         const transcript = await api.transcribe(wav);
         onTranscript(transcript);
-        setStatus("Wispr Flow transcript received.");
+        setStatus("ElevenLabs transcript received.");
       } catch (sttError) {
-        const message = sttError instanceof Error ? sttError.message : "Wispr Flow transcription failed.";
+        const message = sttError instanceof Error ? sttError.message : "ElevenLabs speech-to-text failed.";
         setError(message);
-        setStatus("Focus the transcript field and use Wispr Flow desktop dictation.");
+        setStatus("Focus the transcript field and use manual dictation.");
       }
       return;
     }

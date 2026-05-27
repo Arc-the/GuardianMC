@@ -56,8 +56,8 @@ export function VoiceAssistant({
       </button>
       <p className="mb-3 text-xs text-slate-400">
         {providers.wisprFlowConfigured
-          ? "Records browser microphone audio and sends it to Wispr Flow."
-          : "Wispr API is not configured. Focus the transcript capture field and dictate with Wispr Flow desktop."}
+          ? "Records browser microphone audio and sends it to ElevenLabs speech-to-text."
+          : "ElevenLabs speech-to-text is not configured. Focus the transcript capture field and use manual dictation."}
       </p>
       <div className="mb-3 rounded-md border border-ops-line bg-ops-panel2 p-3">
         <div className="mb-2 flex items-center justify-between gap-3">
