@@ -1,8 +1,8 @@
-# AngelMC (Mission Control) - Implementation Instructions
+# GuardianMC (Mission Control) - Implementation Instructions
 
 ## Product Goal
 
-Build **AngelMC (Mission Control)**, a React + TypeScript + Vite web app with a small TypeScript backend.
+Build **GuardianMC (Mission Control)**, a React + TypeScript + Vite web app with a small TypeScript backend.
 
 This is a hackathon MVP for a voice AI assistant that helps an on-call venue engineer during a live FIFA World Cup watch party or stadium event. The engineer has tools in hand and cannot type easily, so they use voice to ask about blueprints, equipment locations, breaker panels, network racks, and safety playbooks.
 
@@ -105,7 +105,7 @@ Desktop should use a three-column dashboard layout. Mobile can stack panels.
 
 Display:
 
-- App title: `AngelMC`
+- App title: `GuardianMC`
 - Subtitle: `Hands-free blueprint and incident support for live event engineers`
 - Status badge: `Live Event Mode`
 - Event label: `FIFA Watch Party - Halftime`
